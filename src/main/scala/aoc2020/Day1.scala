@@ -2,7 +2,6 @@ package aoc2020
 
 import common.{SolutionRunnable, Util}
 
-import scala.:+
 import scala.collection.mutable
 
 class Day1(filename: String) extends SolutionRunnable {
@@ -14,7 +13,7 @@ class Day1(filename: String) extends SolutionRunnable {
     val part1 = partOne(nums)
     val part2 = partTwo(nums)
 
-    s"$part1\n$part2"
+    s"part1: $part1\npart2: $part2"
   }
 
   private def partOne(nums: Seq[Int]): String = {
