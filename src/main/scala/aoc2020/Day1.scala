@@ -2,14 +2,22 @@ package aoc2020
 
 import common.{SolutionRunnable, Util}
 
+import scala.:+
 import scala.collection.mutable
 
-class Day1 (filename: String) extends SolutionRunnable {
+class Day1(filename: String) extends SolutionRunnable {
   private var lines = Util.loadFileLines(filename)
 
   override def runSolution: String = {
-    val nums = parseInputToInts(lines)
+    val nums = lines.map { ln => ln.toInt }
 
+    val part1 = partOne(nums)
+    val part2 = partTwo(nums)
+
+    s"$part1\n$part2"
+  }
+
+  private def partOne(nums: Seq[Int]): String = {
     val seen: mutable.Set[Int] = mutable.Set()
 
     for (num <- nums) {
@@ -23,7 +31,26 @@ class Day1 (filename: String) extends SolutionRunnable {
     "no answer"
   }
 
-  private def parseInputToInts(lines: Seq[String]): Seq[Int] = {
-    lines.map { ln => ln.toInt }
+  private def partTwo(nums: Seq[Int]): String = {
+    val sortedNums = nums.sorted
+    for (i <- 0 to sortedNums.length) {
+      var l = i + 1
+      var r = sortedNums.length - 1
+
+      while (l < r) {
+        val currSum = sortedNums(i) + sortedNums(l) + sortedNums(r)
+
+        if (currSum == 2020) {
+          return (sortedNums(i) * sortedNums(l) * sortedNums(r)).toString
+        }
+        else if (currSum < 2020) {
+          l = l + 1
+        }
+        else if (currSum > 2020) {
+          r = r - 1
+        }
+      }
+    }
+    "no answer"
   }
 }
